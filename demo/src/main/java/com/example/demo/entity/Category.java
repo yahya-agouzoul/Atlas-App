@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -27,6 +28,14 @@ public class Category {
 
     @Column(nullable = false)
     private String status;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
 
     public Long getId() {
         return id;
@@ -83,24 +92,6 @@ public class Category {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-
-
-
-
-    @PreUpdate
-    public void setUpdatedAt() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-
 }
+
+
